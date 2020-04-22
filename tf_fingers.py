@@ -5,7 +5,7 @@ import os
 import random
 import time
 from multiprocessing import Process, Lock, Queue, current_process
-
+#2020visons class file
 def read_labels_and_images():
     start_time = time.time()
     filepath = "fingers/"
