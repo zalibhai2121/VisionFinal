@@ -47,6 +47,20 @@ def video():
        if cv2.waitKey(1) & 0xFF == ord('q'):
            break
         '''
+       if ret == ord('s'):
+            cv2.imwrite(filename='saved_img.jpg', img=frame)
+            cap.release()
+            img_new = cv2.imread('saved_img.jpg', cv2.IMREAD_GRAYSCALE)
+            img_new = cv2.imshow("Captured Image", img_new)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
+            img_ = cv2.imread('saved_img.jpg', cv2.IMREAD_ANYCOLOR)
+            gray = cv2.cvtColor(img_, cv2.COLOR_BGR2GRAY)
+            img_ = cv2.resize(gray, (28, 28))
+            img_resized = cv2.imwrite(filename='saved_img-final.jpg', img=img_)
+       if cv2.waitKey(1) & 0xFF == ord('q'):
+             break
+
     # When everything done, release the capture
     cap.release()
     cv2.destroyAllWindows()
