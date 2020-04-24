@@ -31,7 +31,7 @@ def video():
        cv2.imshow('detection', frame)
        if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-
+       '''''
        ret2, frame2 = cap.read()
 
        gray = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
@@ -41,19 +41,17 @@ def video():
        contours = cv2.findContours(thresh_img,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)[-2]
        for c in contours:
            cv2.drawContours(frame2, [c], -1, (0, 0, 255), 3)
-
+       
          # Display the resulting frame
        cv2.imshow('frame',frame2)
        if cv2.waitKey(1) & 0xFF == ord('q'):
            break
-
+        '''
     # When everything done, release the capture
     cap.release()
     cv2.destroyAllWindows()
 
 if __name__ == "__main__":
-    img = cv2.imread("images/sudoku30.png", cv2.IMREAD_GRAYSCALE)
-    cv2.imshow("Sudoku", img)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     video()
@@ -63,5 +61,4 @@ if __name__ == "__main__":
     threshold = 37
     adjustment = 11
     iterations = -3
-    #process_image(blur,threshold, adjustment, erode, iterations)
 
