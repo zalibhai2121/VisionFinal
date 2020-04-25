@@ -2,8 +2,11 @@
 
 import numpy as np
 import cv2
-import os
 import tensorflow as tf
+import os
+
+# Remove any TF log outputs (e.g. CPU supporting stuff)
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # Get the dimensions of the data, all images should be the same size, so the dimensions of 1 will work for all
 def image_size():
@@ -15,6 +18,7 @@ img_x, img_y = image_size()
 
 # Begin training the model
 def build_asl_model():
+    # Build the model
     model = tf.keras.Sequential([
         tf.keras.layers.Conv2D(8, (5, 5), padding='same', activation='relu'),
         tf.keras.layers.MaxPooling2D((2, 2)),
@@ -32,6 +36,9 @@ def build_asl_model():
                   loss=tf.keras.losses.SparseCategoricalCrossentropy(),
                   metrics=['accuracy'])
     print("Done building the network topology.")
+
+    # Read training and prediction data
+
 
 
 build_asl_model()
