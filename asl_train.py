@@ -40,3 +40,5 @@ def build_asl_model():
 # Takes nothing as input, returns a trained NN
 def train_model():
     return
+
+build_asl_model()
