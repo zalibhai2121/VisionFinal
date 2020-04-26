@@ -11,7 +11,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # Get the dimensions of the data, all images should be the same size, so the dimensions of 1 will work for all
 def image_size():
-    img = cv2.imread('dataset/A/A1.jpg', 0)
+    img = cv2.imread('dataset/A1.jpg', 0)
     size = img.shape
     return size
 # Extract the x, y lengths
