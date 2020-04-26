@@ -9,15 +9,8 @@ import time
 # Remove any TF log outputs (e.g. CPU supporting stuff)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-# Get the dimensions of the data, all images should be the same size, so the dimensions of 1 will work for all
-def image_size():
-    img = cv2.imread('dataset/A1.jpg', 0)
-    size = img.shape
-    return size
-# Extract the x, y lengths
-img_x, img_y = image_size()
-
-# Begin training the model
+# Build a model
+# Takes nothing as imput, returns a model
 def build_asl_model():
     # Build the model
     model = tf.keras.Sequential([
@@ -38,6 +31,12 @@ def build_asl_model():
                   metrics=['accuracy'])
     print("Done building the network topology.")
 
-    # Read training and prediction data and save as a checkpoint
-    train, train_labels, predict, predict_labels = read_labels_and_images()
+    # Save a checkpoint of our work
     checkpoint = tf.keras.callbacks.ModelCheckpoint("models/fingersteps/checkpoint_{epoch}")
+
+    return model
+
+# Train the model we made
+# Takes nothing as input, returns a trained NN
+def train_model():
+    return
