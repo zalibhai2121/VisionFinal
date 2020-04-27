@@ -7,3 +7,4 @@ Tonight and tomorrow, I am going to look into how other ASL reading programs dea
 2/24 - the cameraClassify.py can detect a hand when put on the screen, kept the contours may help in classification, but do not know as of yet -- next step is to train data in classify.py file -- z
 
 2/27 - created label maker for the nn, and started training data -- M
+--- can use corner detection to help detect what alphabet we are using -- Z
