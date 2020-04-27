@@ -17,6 +17,9 @@ def make_labels():
         current_filename = filename
         letter = current_filename[:1]
         labels.update({current_filename: letter})
+    #os.remove("dataset/labels.txt")
     file = open("dataset/labels.txt", "w")
     file.write(str(labels))
     file.close()
+
+make_labels()
