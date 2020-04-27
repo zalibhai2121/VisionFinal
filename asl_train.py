@@ -118,4 +118,44 @@ def process_files(filepath, files, label_map, q):
     q.put((t, tl, p, pl))
 
 
+def corners(img):
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gray = np.float32(gray)
+    print(gray)
+
+    # find Harris corners
+    dst = cv2.cornerHarris(gray, 2, 3, 0.04)
+    dst = cv2.dilate(dst, None)
+    ret, dst = cv2.threshold(dst, 0.01 * dst.max(), 255, 0)
+    dst = np.uint8(dst)
+
+    # find centroids
+    ret, labels, stats, centroids = cv2.connectedComponentsWithStats(dst)
+
+    # define the criteria to stop and refine the corners
+    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.001)
+    coners = cv2.cornerSubPix((img), np.float32(centroids), (10, 10), (-1, -1), criteria)
+    #print(coners)
+    # here u can get corners check for more information follow the link
+    # http://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_feature2d/py_features_harris/py_features_harris.html
+    # Now draw them
+    res = np.hstack((centroids, coners))
+    res = np.int0(res)
+    img[res[:, 1], res[:, 0]] = [0, 0, 255]
+    img[res[:, 3], res[:, 2]] = [0, 255, 0]
+    cv2.imshow('co', img)
+
+    # (img, howmany, quality, min dist btwn corners)
+    corner = cv2.goodFeaturesToTrack((img), 500, 0.01, 10)
+    corner = np.int0(corner)
+    print(corner)
+
+    for c in corner:
+        x, y = c.ravel()
+        cv2.circle(img, (x,y), 3, 255, -1)
+
+    cv2.imshow('corners', img)
+
+
+
 build_asl_model()
