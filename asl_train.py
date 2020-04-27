@@ -45,7 +45,7 @@ def read_labels_and_images():
     start_time = time.time()
     filepath = "dataset/"
     # Read the label file, mapping image filenames to (x, y) pairs for UL corner
-    with open(filepath + "labels") as label_file:
+    with open(filepath + "labels.txt") as label_file:
         label_string = label_file.readline()
         label_map = eval(label_string)
     print("Read label map with", len(label_map), "entries")
