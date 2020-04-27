@@ -19,7 +19,7 @@ def build_asl_model():
         tf.keras.layers.Dropout(rate=0.5),
         tf.keras.layers.Conv2D(24, (3, 3), padding='same', activation='relu'),
         tf.keras.layers.MaxPooling2D((2, 2)),
-        tf.keras.layers.Dropout(rate=0.5),
+        tf.keras.layers.Dropout(rate=0.5), 
         tf.keras.layers.Conv2D(96, (3, 3), padding='same', activation='relu'),
         tf.keras.layers.GlobalAveragePooling2D(),
         tf.keras.layers.Dense(3, activation='softmax')])
