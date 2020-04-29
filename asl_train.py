@@ -34,7 +34,7 @@ def build_asl_model():
     print("Done building the network topology.")
 
     # Read training and prediction data
-    train, train_labels, predict, predict_labels = read_labels_and_images()
+    #train, train_labels, predict, predict_labels = read_labels_and_images()
 
     # Save a checkpoint of our work
     checkpoint = tf.keras.callbacks.ModelCheckpoint("models/fingersteps/checkpoint_{epoch}")
