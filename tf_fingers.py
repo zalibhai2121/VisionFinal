@@ -88,31 +88,6 @@ def process_files(filepath, files, label_map, q):
 
 def build_finger_model():
     # Build the model
-    """
-    model = tf.keras.Sequential([
-        tf.keras.layers.Conv2D(32, (3, 3), padding='same', activation='relu'),
-        tf.keras.layers.MaxPooling2D((2, 2)),
-        tf.keras.layers.Dropout(rate=0.5),
-        tf.keras.layers.Conv2D(64, (3, 3), padding='same', activation='relu'),
-        tf.keras.layers.MaxPooling2D((2, 2)),
-        tf.keras.layers.Dropout(rate=0.5),
-        tf.keras.layers.Conv2D(128, (3, 3), padding='same', activation='relu'),
-        tf.keras.layers.MaxPooling2D((2, 2)),
-        tf.keras.layers.Conv2D(256, (3, 3), padding='same', activation='relu'),
-        tf.keras.layers.GlobalAveragePooling2D(),
-        tf.keras.layers.Dense(3, activation='softmax')])
-    """
-    """
-    model = tf.keras.Sequential([
-        tf.keras.layers.Conv2D(8, (3, 3), padding='same', activation='relu'),
-        tf.keras.layers.MaxPooling2D((2, 2)),
-        tf.keras.layers.Dropout(rate=0.5),
-        tf.keras.layers.Conv2D(16, (3, 3), padding='same', activation='relu'),
-        tf.keras.layers.MaxPooling2D((2, 2)),
-        tf.keras.layers.Conv2D(32, (3, 3), padding='same', activation='relu'),
-        tf.keras.layers.GlobalAveragePooling2D(),
-        tf.keras.layers.Dense(3, activation='softmax')])
-    """
     model = tf.keras.Sequential([
         tf.keras.layers.Conv2D(16, (5, 5), padding='same', activation='relu'),
         tf.keras.layers.MaxPooling2D((2, 2)),
