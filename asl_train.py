@@ -34,7 +34,7 @@ def build_asl_model():
     print("Done building the network topology.")
 
     # Read training and prediction data
-    #train, train_labels, predict, predict_labels = read_labels_and_images()
+    train, train_labels, predict, predict_labels = read_labels_and_images()
 
     # Save a checkpoint of our work
     checkpoint = tf.keras.callbacks.ModelCheckpoint("models/fingersteps/checkpoint_{epoch}")
@@ -100,7 +100,7 @@ def process_files(filepath, files, label_map, q):
         num_done += 1
         img = cv2.imread(filepath + filename)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        img = tf.reshape(img, [64, 64, 1])
+        img = tf.reshape(img, [200, 200, 1]) # ORIGINALLY [64,64,1]#######
         for contrast in [1, 1.2, 1.5, 1.7]:
             img2 = tf.image.adjust_contrast(img, contrast_factor=contrast)
             #print("*** 3")
