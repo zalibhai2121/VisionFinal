@@ -44,6 +44,7 @@ def build_asl_model():
 
     # Read training and prediction data
     train = images
+    # train, train_labels, predict, predict_labels = read_labels_and_images()
 
     # Save a checkpoint of our work
     checkpoint = tf.keras.callbacks.ModelCheckpoint("models/fingersteps/checkpoint_{epoch}")
