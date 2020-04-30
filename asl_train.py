@@ -4,12 +4,21 @@ import numpy as np
 import cv2
 import tensorflow as tf
 import os
+import glob
 import time
+from typing import Dict, List, Tuple
 from multiprocessing import Process, Lock, Queue, current_process
 import random
 
 # Remove any TF log outputs (e.g. CPU supporting stuff)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+
+path = glob.glob("/VisionsFinal/to/dataset/*.jpg")
+images = []
+for img in path:
+    n = cv2.imread(img)
+    images.append(n)
 
 # Build a model
 # Takes nothing as imput, returns a model
@@ -34,16 +43,17 @@ def build_asl_model():
     print("Done building the network topology.")
 
     # Read training and prediction data
-    train, train_labels, predict, predict_labels = read_labels_and_images()
+    train = images
+    # train, train_labels, predict, predict_labels = read_labels_and_images()
 
     # Save a checkpoint of our work
     checkpoint = tf.keras.callbacks.ModelCheckpoint("models/fingersteps/checkpoint_{epoch}")
 
     return model
-
+"""""
 def read_labels_and_images():
     start_time = time.time()
-    filepath = "dataset/"
+    filepath = "dataset"
     # Read the label file, mapping image filenames to (x, y) pairs for UL corner
     with open(filepath + "labels.txt") as label_file:
         label_string = label_file.readline()
@@ -85,6 +95,8 @@ def read_labels_and_images():
 
     return (train, train_labels, predict, predict_labels)
 
+
+
 # Child process, intended to be run in parallel in several copies
 #  files      our portion of the files to process
 #  label_map  contains the right answers for each file
@@ -100,7 +112,7 @@ def process_files(filepath, files, label_map, q):
         num_done += 1
         img = cv2.imread(filepath + filename)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        img = tf.reshape(img, [64, 64, 1])
+        img = tf.reshape(img, [200, 200, 1]) # ORIGINALLY [64,64,1]#######
         for contrast in [1, 1.2, 1.5, 1.7]:
             img2 = tf.image.adjust_contrast(img, contrast_factor=contrast)
             #print("*** 3")
@@ -116,7 +128,7 @@ def process_files(filepath, files, label_map, q):
                     pl.append(label_map[filename]-1)
 
     q.put((t, tl, p, pl))
-
+"""
 
 def corners(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -155,7 +167,6 @@ def corners(img):
         cv2.circle(img, (x,y), 3, 255, -1)
 
     cv2.imshow('corners', img)
-
 
 
 build_asl_model()
