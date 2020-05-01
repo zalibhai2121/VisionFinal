@@ -17,7 +17,7 @@ class KeypointLabeler:
         """
         :param self:
         """
-        self.image_directory: str = "extra_dataset"
+        self.image_directory: str = "dataset" #or extra_dataset??
         self.label_file: str = "labels.txt"
         self.keypoint_radius: int = 4
         self.current_filename: str = "asl_train.py"
