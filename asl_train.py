@@ -27,17 +27,15 @@ def build_asl_model():
     # Build the model
     model = tf.keras.Sequential()
 
-    model.add(tf.keras.layers.Conv2D(8, (5, 5), padding='same', activation='relu')) #1st convolutional layer, might need to modify to accept image input
-    model.add(tf.keras.layers.MaxPooling2D(pool_size=(2,2))) #2,2 will halve the input in both spatial dimensions
-    #model.add(Dropout(rate=0.5))
-    model.add(tf.keras.layers.Conv2D(24, (3, 3), padding='same', activation='relu'))
-    model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
-    #model.add(GlobalAveragePooling2D())
-    model.add(tf.keras.layers.Flatten())
+
+    model.add(tf.keras.layers.Embedding(input_dim=1000, output_dim=64))
+    model.add(tf.keras.layers.GRU(256, return_sequences=True))
+    model.add(tf.keras.layers.SimpleRNN(128))
+    #model.add(tf.keras.layers.LSTM(128))
     model.add(tf.keras.layers.Dense(3, activation='softmax'))
 
 
-    """
+    """"
     model = tf.keras.Sequential([
         tf.keras.layers.Conv2D(8, (5, 5), padding='same', activation='relu'),
         tf.keras.layers.MaxPooling2D((2, 2)),
@@ -70,7 +68,7 @@ def build_asl_model():
 """""
 def read_labels_and_images():
     start_time = time.time()
-    filepath = "dataset"
+    filepath = "dataset/"
     # Read the label file, mapping image filenames to (x, y) pairs for UL corner
     with open(filepath + "labels.txt") as label_file:
         label_string = label_file.readline()
