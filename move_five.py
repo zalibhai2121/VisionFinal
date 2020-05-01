@@ -28,6 +28,7 @@ def find_lowest():
         else:
             number += 5
             find_lowest()
+    make_labels()
 
 # Moves 5 files of each letter to the destination folder
 # Takes nothing as input
