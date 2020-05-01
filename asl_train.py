@@ -26,14 +26,15 @@ for img in path:
 def build_asl_model():
     # Build the model
     model = tf.keras.Sequential()
-    model.add(Conv2D(8, (5, 5), padding='same', activation='relu')) #1st convolutional layer, might need to modify to accept image input
-    model.add(MaxPooling2D(pool_size=(2,2))) #2,2 will halve the input in both spatial dimensions
+
+    model.add(tf.keras.layers.Conv2D(8, (5, 5), padding='same', activation='relu')) #1st convolutional layer, might need to modify to accept image input
+    model.add(tf.keras.layers.MaxPooling2D(pool_size=(2,2))) #2,2 will halve the input in both spatial dimensions
     #model.add(Dropout(rate=0.5))
-    model.add(Conv2D(24, (3, 3), padding='same', activation='relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(tf.keras.layers.Conv2D(24, (3, 3), padding='same', activation='relu'))
+    model.add(tf.keras.layers.MaxPooling2D(pool_size=(2, 2)))
     #model.add(GlobalAveragePooling2D())
-    model.add(Flatten())
-    model.add(Dense(3, activation='softmax'))
+    model.add(tf.keras.layers.Flatten())
+    model.add(tf.keras.layers.Dense(3, activation='softmax'))
 
 
     """

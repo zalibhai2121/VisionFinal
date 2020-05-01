@@ -3,10 +3,29 @@ import os
 
 import matplotlib
 import numpy as np
-import matplotlib.pyplot as plt
-import copy
+from keras.datasets import mnist
 import cv2
+def prediction(pred):
+    return(chr(pred+ 65))
 
+def crop_image(image, x, y, width, height):
+    return image[y:y + height, x:x + width]
+
+
+def keras_predict(model, image):
+    data = np.asarray(image, dtype="int32")
+
+    pred_probab = model.predict(data)[0]
+    pred_class = list(pred_probab).index(max(pred_probab))
+    return max(pred_probab), pred_class
+
+
+def keras_process_image(img):
+    image_x = 28
+    image_y = 28
+    img = cv2.resize(img, (1, 28, 28), interpolation=cv2.INTER_AREA)
+
+    return img
 def video():
 
     cap = cv2.VideoCapture(0)
@@ -16,6 +35,7 @@ def video():
     while(True):
 
         ret, frame = cap.read()
+
         if not ret:
             break
         fgmask = fgbg.apply(frame)
@@ -25,7 +45,6 @@ def video():
             if output[2][i][4] >= 800 and output[2][i][4] <= 10000:
                 cv2.rectangle(frame, (output[2][i][0], output[2][i][1]), (
                     output[2][i][0] + output[2][i][2], output[2][i][1] + output[2][i][3]), (0, 255, 0), 2)
-
         cv2.imshow("detection", frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
@@ -37,6 +56,7 @@ def video():
         for i in corners:
             x, y = i.ravel()
             cv2.circle(frame, (x, y), 3, (255, 0, 0), -1)
+
         cv2.imshow("corners", frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
