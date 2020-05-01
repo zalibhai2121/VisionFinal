@@ -1,7 +1,7 @@
 import os
 from typing import Dict
 
-image_directory: str = "dataset"
+image_directory: str = "extra_dataset"
 label_file: str = "labels.txt"
 
 def make_labels():
