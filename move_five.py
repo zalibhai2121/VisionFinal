@@ -5,7 +5,6 @@ Calls the make_labels at the end to make an updated label.txt file
 
 import os
 import shutil
-import re
 from make_labels import make_labels
 import os.path
 
@@ -27,9 +26,8 @@ def find_lowest():
         if os.path.isfile(yoohoo):
             move_five()
         else:
-            while number < 3000:
-                number += 5
-                find_lowest()
+            number += 5
+            find_lowest()
 
 # Moves 5 files of each letter to the destination folder
 # Takes nothing as input
