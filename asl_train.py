@@ -1,15 +1,11 @@
 # Train a model on the data
 
-import numpy as np
+
 import cv2
 import tensorflow as tf
 import os
-import glob
-import pathlib
-import time
-from typing import Dict, List, Tuple
-from multiprocessing import Process, Lock, Queue, current_process
-import random
+import pickle
+
 
 
 # Remove any TF log outputs (e.g. CPU supporting stuff)
@@ -20,36 +16,45 @@ path = '/Users/zainabalibhai/PycharmProjects/VisionFinal/extra_dataset'
 # Takes nothing as imput, returns a model
 def build_asl_model():
     # Build the model
+    X = pickle.load(open("X.pickle", "rb"))
+    Y = pickle.load(open("Y.pickle", "rb"))
+    X = X/255
+
+
+
     model = tf.keras.Sequential()
 
-
+    """""
     model.add(tf.keras.layers.Embedding(input_dim=1000, output_dim=64))
     model.add(tf.keras.layers.GRU(256, return_sequences=True))
     model.add(tf.keras.layers.SimpleRNN(128))
     #model.add(tf.keras.layers.LSTM(128))
     model.add(tf.keras.layers.Dense(3, activation='softmax'))
-
-    """"
-    model = tf.keras.Sequential([
-        tf.keras.layers.Conv2D(8, (5, 5), padding='same', activation='relu'),
-        tf.keras.layers.MaxPooling2D((2, 2)),
-        tf.keras.layers.Dropout(rate=0.5),
-        tf.keras.layers.Conv2D(24, (3, 3), padding='same', activation='relu'),
-        tf.keras.layers.MaxPooling2D((2, 2)),
-        tf.keras.layers.Dropout(rate=0.5),
-        tf.keras.layers.Conv2D(96, (3, 3), padding='same', activation='relu'),
-        tf.keras.layers.GlobalAveragePooling2D(),
-        tf.keras.layers.Dense(3, activation='softmax')])
     """
+
+    model.add(tf.keras.layers.Conv2D(64, (3,3), input_shape = X.shape[1:]))
+    model.add(tf.keras.layers.Activation("relu"))
+    model.add(tf.keras.layers.MaxPool2D(pool_size=(2,2)))
+
+    model.add(tf.keras.layers.Conv2D(64, (3, 3)))
+    model.add(tf.keras.layers.Activation("relu"))
+    model.add(tf.keras.layers.MaxPool2D(pool_size=(2, 2)))
+
+    model.add(tf.keras.layers.Flatten())
+    model.add(tf.keras.layers.Dense(64))
+
+    model.add(tf.keras.layers.Dense(1))
+    model.add(tf.keras.layers.Activation("sigmoid"))
+    model.compile(loss = "binary_crossentropy",
+                  optimizer = "adam",
+                  metrix = ['accuracy'])
+    print("Done building the network topology.")
+
+    model.fit(X, Y, batch_size = 32, validation_split = 0.1, )
     print("Shape of output", model.compute_output_shape(input_shape=(None, 64, 64, 1)))
 
     model.summary() #Summarise the model
 
-    #Compile the defined neural network
-    model.compile(optimizer=tf.keras.optimizers.Adam(),
-                  loss=tf.keras.losses.SparseCategoricalCrossentropy(),
-                  metrics=['accuracy'])
-    print("Done building the network topology.")
 
     # Read training and prediction data
     # train, train_labels, predict, predict_labels = read_labels_and_images()
