@@ -5,6 +5,7 @@ import pickle
 import numpy as np
 
 class Classify(object):
+    
     def __init__(self, PATH = '', IMAGE_SIZE = 50):
         self.PATH = PATH
         self.IMAGE_SIZE = IMAGE_SIZE
@@ -18,15 +19,24 @@ class Classify(object):
         self.list_categories = []
 
     def get_categories(self):
+        """
+        :param self:
+        :return: list_categories
+        """
+        
         for path in os.listdir(self.PATH):
+            
             if '.DS_Store' in path:
                 pass
             else:
                 self.list_categories.append(path)
+                
         print("Found Categories ", self.list_categories, '\n')
+        
         return self.list_categories
 
     def Process_Image(self):
+        
         try:
             """
             Return Numpy array of image
@@ -68,7 +78,8 @@ class Classify(object):
 
     def pickle_image(self):
         """
-        :return: None Creates a Pickle Object of DataSet
+        Creates a Pickle Object of DataSet
+        :return: None 
         """
         # Call the Function and Get the Data
         X_Data, Y_Data = self.Process_Image()
@@ -84,10 +95,14 @@ class Classify(object):
         pickle_out.close()
 
         print("Pickled Image Successfully ")
+        
         return X_Data, Y_Data
 
     def load_dataset(self):
-
+        """
+        :return: x_data, y_data
+        """
+    
         try:
             # Read the Data from Pickle Object
             X_Temp = open('X_Data', 'rb')
@@ -96,7 +111,7 @@ class Classify(object):
             Y_Temp = open('Y_Data', 'rb')
             Y_Data = pickle.load(Y_Temp)
 
-            print('Reading Dataset from PIckle Object')
+            print('Reading Dataset from Pickle Object')
 
             return X_Data, Y_Data
 
