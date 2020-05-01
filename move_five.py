@@ -28,9 +28,9 @@ def find_lowest():
         print("The extra dataset folder is empty")
     else:
         file = 'A' + str(number) + '.jpg'
-        yoohoo = source + "/" + file
+        sourcefile = source + "/" + file
         
-        if os.path.isfile(yoohoo):
+        if os.path.isfile(sourcefile):
             move_five()
         else:
             number += 5
