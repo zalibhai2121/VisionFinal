@@ -10,13 +10,18 @@ import os.path
 
 # Set source, destination folders
 source: str = "extra_dataset"
-destination: str = "dataset"
+destination: str = "dataset" #why is this still here
 # Set list of alphabet
 alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'del', 'nothing', 'space']
 
-# Get the lowest number to work from, takes nothing as imput
+
 number = 1
+
 def find_lowest():
+    """
+    Get the lowest number to work from
+    ToDo: define number in a smarter way
+    """
     global number
     if len(os.listdir(source)) == 0:
         print("The extra dataset folder is empty")
