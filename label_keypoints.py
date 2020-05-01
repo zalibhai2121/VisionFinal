@@ -4,6 +4,7 @@ Your progress is saved as you go along. You can quit at any time by terminating 
 program it will pick up where you left off.
 The labels are saved in label_file as a string representation of a python dict.
 """
+
 import os
 from typing import Dict, List, Tuple
 
@@ -11,31 +12,52 @@ import cv2
 
 
 class KeypointLabeler:
+    
     def __init__(self):
-        self.image_directory: str = "dataset"
+        """
+        :param self:
+        """
+        self.image_directory: str = "extra_dataset"
         self.label_file: str = "labels.txt"
         self.keypoint_radius: int = 4
         self.current_filename: str = "asl_train.py"
         self.current_image = None
+        
         self.labels: Dict[str, List[Tuple[int, int]]]
         labels_string: str = self.read_labels().strip()
+            
         if not labels_string:
             self.labels: Dict[str, List[Tuple[int, int]]] = {}
         else:
             self.labels: Dict[str, List[Tuple[int, int]]] = eval(labels_string)
 
     def save_label(self, event: int, x: int, y: int, flags, param):
+        """
+        Saves the labels for the current image
+        :param self:
+        :param event:
+        :param x:
+        :param y:
+        :param flags:
+        :param param: #should we change this name
+        """
         if event == cv2.EVENT_LBUTTONUP:
             cv2.circle(self.current_image, (x, y), self.keypoint_radius, (255, 0, 0), -1)
             cv2.imshow("label_me_please", self.current_image)
             self.labels[self.current_filename].append((x, y))
 
     def label(self):
+        """
+        :param self:
+        """
         cv2.namedWindow("label_me_please")
+        
         for filename in os.listdir(self.image_directory):
             self.current_filename = filename
+            
             if self.current_filename in self.labels:
                 continue
+                
             self.labels[self.current_filename] = []
             cv2.setMouseCallback("label_me_please", self.save_label)
             self.current_image = cv2.imread(self.image_directory + "/" + filename)
