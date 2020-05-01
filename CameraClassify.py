@@ -5,6 +5,7 @@ import matplotlib
 import numpy as np
 from keras.datasets import mnist
 import cv2
+
 def prediction(pred):
     return(chr(pred+ 65))
 
