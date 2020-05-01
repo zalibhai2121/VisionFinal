@@ -66,13 +66,22 @@ class KeypointLabeler:
             self.write_labels()
 
     def read_labels(self) -> str:
+        """
+        ToDo: fix it up
+        :param self:
+        :return: the label string
+        """
         if not os.path.exists(self.label_file):
             return ""
+        
         with open(self.label_file) as label_output_file:
             label_string = label_output_file.readline()
         return label_string
 
     def write_labels(self):
+        """
+        :param self:
+        """
         with open(self.label_file, "w") as label_output_file:
             label_output_file.write(str(self.labels))
 
