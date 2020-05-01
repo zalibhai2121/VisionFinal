@@ -16,14 +16,6 @@ import random
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
-path = glob.glob("/VisionsFinal/to/dataset/*.jpg")
-images = []
-for img in path:
-    n = cv2.imread(img)
-    images.append(n)
-
-print(images)
-
 # Build a model
 # Takes nothing as imput, returns a model
 def build_asl_model():
@@ -68,20 +60,6 @@ def build_asl_model():
 
     return model
 
-def display_img(img):
-
-    cv2.imshow('Img', img)
-
-    cv2.waitKey(0)
-
-
-for filename in os.listdir("dataset"):
-    color = (255, 0, 255)
-    print(filename)
-    image = cv2.imread("dataset/"+filename, cv2.IMREAD_GRAYSCALE)
-    cv2.imshow("images", image)
-    cv2.waitKey()
-    cv2.destroyAllWindows()
 
 def corners(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
