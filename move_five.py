@@ -13,6 +13,7 @@ source: str = "extra_dataset"
 destination: str = "dataset" #why is this still here
 # Set alphabet as a list
 alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'del', 'nothing', 'space']
+short_alphabet = ['A', 'B', 'C']
 
 
 number = 1
@@ -23,19 +24,19 @@ def find_lowest():
     ToDo: define number in a smarter way
     """
     global number
-    
+
     if len(os.listdir(source)) == 0:
         print("The extra dataset folder is empty")
     else:
         file = 'A' + str(number) + '.jpg'
         sourcefile = source + "/" + file
-        
+
         if os.path.isfile(sourcefile):
             move_five()
         else:
             number += 5
             find_lowest()
-            
+
     make_labels()
 
 
@@ -44,12 +45,12 @@ def move_five():
     move 5 files of each letter to the destination folder
     """
     global number
-    
-    for i in alphabet:
+
+    for i in short_alphabet:
         digit = number
         letter = i
         counter = 0
-        
+
         while counter != 5:
             file = i + str(digit) + '.jpg'
             #print(file)
