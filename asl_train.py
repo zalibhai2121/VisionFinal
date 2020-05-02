@@ -11,14 +11,19 @@ import pickle
 # Remove any TF log outputs (e.g. CPU supporting stuff)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-path = '/Users/zainabalibhai/PycharmProjects/VisionFinal/extra_dataset'
 # Build a model
 # Takes nothing as imput, returns a model
 def build_asl_model():
     # Build the model
-    X = pickle.load(open("X.pickle", "rb"))
-    Y = pickle.load(open("Y.pickle", "rb"))
-    X = X/255
+    A = pickle.load(open("A.pickle", "rb"))
+    B = pickle.load(open("B.pickle", "rb"))
+    C = pickle.load(open("C.pickle", "rb"))
+    D = pickle.load(open("D.pickle", "rb"))
+
+
+
+
+    A = A/255
 
 
 
@@ -32,7 +37,7 @@ def build_asl_model():
     model.add(tf.keras.layers.Dense(3, activation='softmax'))
     """
 
-    model.add(tf.keras.layers.Conv2D(64, (3,3), input_shape = X.shape[1:]))
+    model.add(tf.keras.layers.Conv2D(64, (3,3), input_shape = A.shape[1:]))
     model.add(tf.keras.layers.Activation("relu"))
     model.add(tf.keras.layers.MaxPool2D(pool_size=(2,2)))
 
