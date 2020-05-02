@@ -104,12 +104,12 @@ def train():
     print("\tA: {}, B: {}, C: {}".format(num_A_test, num_B_test, num_C_test))
 
     # One-hot encode the training labels
-    y_train_OH = tf.keras.layers.np_utils.to_categorical(y_train)
+    y_train_OH = tf.keras.utils.to_categorical(y_train)
 
     # One-hot encode the test labels
-    y_test_OH = tf.keras.layers.np_utils.to_categorical(y_test)
+    y_test_OH = tf.keras.utils.to_categorical(y_test)
 
-    model = tf.keras.layers.Sequential()
+    model = tf.keras.Sequential()
     # First convolutional layer accepts image input
     model.add(tf.keras.layers.Conv2D(filters=5, kernel_size=5, padding='same', activation='relu',
                      input_shape=(50, 50, 3)))
