@@ -15,10 +15,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 # Takes nothing as imput, returns a model
 def build_asl_model():
     # Build the model
-    A = pickle.load(open("A.pickle", "rb"))
-    B = pickle.load(open("B.pickle", "rb"))
-    C = pickle.load(open("C.pickle", "rb"))
-    D = pickle.load(open("D.pickle", "rb"))
+    X = pickle.load(open("A.pickle", "rb"))
+    Y = pickle.load(open("B.pickle", "rb"))
 
 
 
