@@ -1,3 +1,5 @@
+# From: https://github.com/legolas123/cv-tricks.com/blob/master/Tensorflow-tutorials/tutorial-2-image-classifier/train.py
+
 import dataset
 import tensorflow as tf
 import time
