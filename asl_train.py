@@ -75,7 +75,7 @@ def train():
                   metrics=['accuracy'])
     hist = model.fit(x_train, y_train_OH,
                      validation_split=0.20,
-                     epochs=2,
+                     epochs=5,
                      batch_size=32)
 
     # Obtain accuracy on test set
