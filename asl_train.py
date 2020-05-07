@@ -89,7 +89,6 @@ def train():
 
     model.save('models/asl_1')
     plt.show()
-# Build, train and test the model
-train()
 
-#
+# Build, train, test and save the model
+train()
