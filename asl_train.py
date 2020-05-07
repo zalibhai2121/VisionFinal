@@ -25,39 +25,32 @@ def train():
     plt.show()
 
     # Number of each letter in the training dataset
-    num_A_train = sum(y_train == 0)
-    num_B_train = sum(y_train == 1)
-    num_C_train = sum(y_train == 2)
+    A_train = sum(y_train == 0)
+    B_train = sum(y_train == 1)
+    C_train = sum(y_train == 2)
 
     # Number of each letter in the test dataset
-    num_A_test = sum(y_test == 0)
-    num_B_test = sum(y_test == 1)
-    num_C_test = sum(y_test == 2)
+    A_test = sum(y_test == 0)
+    B_test = sum(y_test == 1)
+    C_test = sum(y_test == 2)
 
     # Print statistics about the dataset
     print("Training set:")
-    print("\tA: {}, B: {}, C: {}".format(num_A_train, num_B_train, num_C_train))
+    print("\tA: {}, B: {}, C: {}".format(A_train, B_train, C_train))
     print("Test set:")
-    print("\tA: {}, B: {}, C: {}".format(num_A_test, num_B_test, num_C_test))
+    print("\tA: {}, B: {}, C: {}".format(A_test, B_test, C_test))
 
     # One-hot encode the training and test labels
     y_train_OH = tf.keras.utils.to_categorical(y_train)
     y_test_OH = tf.keras.utils.to_categorical(y_test)
 
     # Begin building the model
-    model = tf.keras.Sequential()
-    # First convolutional layer accepts image input
-    model.add(tf.keras.layers.Conv2D(filters=5, kernel_size=5, padding='same', activation='relu',
-                     input_shape=(50, 50, 3)))
-    # Add a max pooling layer
-    model.add(tf.keras.layers.MaxPooling2D(pool_size=4))
-    # Add a convolutional layer
-    model.add(tf.keras.layers.Conv2D(filters=15, kernel_size=5, padding='same', activation='relu'))
-    # Add another max pooling layer
-    model.add(tf.keras.layers.MaxPooling2D(pool_size=4))
-    # Flatten and feed to output layer
-    model.add(tf.keras.layers.Flatten())
-    model.add(tf.keras.layers.Dense(3, activation='softmax'))
+    model = tf.keras.Sequential([tf.keras.layers.Conv2D(filters=5, kernel_size=5, padding='same', activation='relu',input_shape=(50, 50, 3)),
+                                 tf.keras.layers.MaxPooling2D(pool_size=4),
+                                 tf.keras.layers.Conv2D(filters=15, kernel_size=5, padding='same', activation='relu'),
+                                 tf.keras.layers.MaxPooling2D(pool_size=4),tf.keras.layers.Flatten(),
+                                 tf.keras.layers.Dense(3, activation='softmax')])
+
 
     # Summarize the model
     print("Summary of model:")
@@ -73,7 +66,7 @@ def train():
                      validation_split=0.20,
                      epochs=10, # Increase this to improve accuracy
                      batch_size=32)
-    #print("Shape of output", model.compute_output_shape(input_shape=(None, 64, 64, 1)))
+    print("Shape of output", model.compute_output_shape(input_shape=(None, 64, 64, 1)))
 
     # Obtain accuracy on test set
     score = model.evaluate(x=x_test,

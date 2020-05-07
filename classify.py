@@ -11,23 +11,23 @@ def load_data(container_path='dataset/', folders = ['A', 'B', 'C'],
     Loads sign language dataset.
     """
 
-    filenames, labels = [], []
+    names, labels = [], []
 
     for label, folder in enumerate(folders):
         folder_path = join(container_path, folder)
         images = [join(folder_path, d)
                   for d in sorted(listdir(folder_path))]
         labels.extend(len(images) * [label])
-        filenames.extend(images)
+        names.extend(images)
 
     random.seed(seed)
-    data = list(zip(filenames, labels))
+    data = list(zip(names, labels))
     random.shuffle(data)
     data = data[:size]
-    filenames, labels = zip(*data)
+    names, labels = zip(*data)
 
     # Get the images
-    x = paths_to_tensor(filenames).astype('float32') / 255
+    x = tensor_paths(names).astype('float32') / 255
     # Store the one-hot targets
     y = np.array(labels)
 
@@ -39,7 +39,7 @@ def load_data(container_path='dataset/', folders = ['A', 'B', 'C'],
     return (x_train, y_train), (x_test, y_test)
 
 
-def path_to_tensor(img_path, size):
+def tensor_path(img_path, size):
     # loads RGB image as PIL.Image.Image type
     img = tf.keras.preprocessing.image.load_img(img_path, target_size=(size, size))
     # convert PIL.Image.Image type to 3D tensor
@@ -48,8 +48,8 @@ def path_to_tensor(img_path, size):
     return np.expand_dims(x, axis=0)
 
 
-def paths_to_tensor(img_paths, size=50):
-    list_of_tensors = [path_to_tensor(img_path, size) for img_path in img_paths]
-    return np.vstack(list_of_tensors)
+def tensor_paths(img_paths, size=50):
+    tensor_list = [tensor_path(img_path, size) for img_path in img_paths]
+    return np.vstack(tensor_list)
 
 load_data()
