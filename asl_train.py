@@ -1,6 +1,3 @@
-# Train a model on the data
-
-
 import cv2
 import tensorflow as tf
 import os
@@ -8,18 +5,18 @@ import pickle
 import classify
 import numpy as np
 import matplotlib.pyplot as plt
-
-
-
 # Remove any TF log outputs (e.g. CPU supporting stuff)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 def train():
+    # Loads data from classify.py that will be used to train the network
     (x_train, y_train), (x_test, y_test) = classify.load_data()
 
+    # The letters we will be trainin, testing on
     labels = ['A', 'B', 'C']
 
+    """
     # Print the first several training images, along with the labels
     fig = plt.figure(figsize=(20, 5))
     for i in range(10):
@@ -27,18 +24,16 @@ def train():
         ax.imshow(np.squeeze(x_train[i]))
         ax.set_title("{}".format(labels[y_train[i]]))
     plt.show()
+    """
 
+    # Number of each letter in the training dataset
     num_A_train = sum(y_train == 0)
-    # Number of B's in the training dataset
     num_B_train = sum(y_train == 1)
-    # Number of C's in the training dataset
     num_C_train = sum(y_train == 2)
 
-    # Number of A's in the test dataset
+    # Number of each letter in the test dataset
     num_A_test = sum(y_test == 0)
-    # Number of B's in the test dataset
     num_B_test = sum(y_test == 1)
-    # Number of C's in the test dataset
     num_C_test = sum(y_test == 2)
 
     # Print statistics about the dataset
@@ -47,12 +42,11 @@ def train():
     print("Test set:")
     print("\tA: {}, B: {}, C: {}".format(num_A_test, num_B_test, num_C_test))
 
-    # One-hot encode the training labels
+    # One-hot encode the training and test labels
     y_train_OH = tf.keras.utils.to_categorical(y_train)
-
-    # One-hot encode the test labels
     y_test_OH = tf.keras.utils.to_categorical(y_test)
 
+    # Begin building the model
     model = tf.keras.Sequential()
     # First convolutional layer accepts image input
     model.add(tf.keras.layers.Conv2D(filters=5, kernel_size=5, padding='same', activation='relu',
@@ -70,13 +64,17 @@ def train():
     # Summarize the model
     model.summary()
 
+    # Compile the model using categorical_crossentropy
     model.compile(optimizer='rmsprop',
-                  loss='categorical_crossentropy',
+                  loss='categorical_crossentropy', # binary_crossentropy
                   metrics=['accuracy'])
+
+    # Fit the model to the images
     hist = model.fit(x_train, y_train_OH,
                      validation_split=0.20,
-                     epochs=5,
+                     epochs=5, # Increase this to improve accuracy
                      batch_size=32)
+    #print("Shape of output", model.compute_output_shape(input_shape=(None, 64, 64, 1)))
 
     # Obtain accuracy on test set
     score = model.evaluate(x=x_test,
@@ -98,6 +96,5 @@ def train():
         ax.imshow(np.squeeze(x_test[idx]))
         ax.set_title("{} (pred: {})".format(labels[y_test[idx]], labels[y_preds[idx]]))
 
-
-
+# Build, train and test the model
 train()
