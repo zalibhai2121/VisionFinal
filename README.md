@@ -10,3 +10,5 @@ Tonight and tomorrow, I am going to look into how other ASL reading programs dea
 --- can use corner detection to help detect what alphabet we are using -- Z
 
 5/02 - pair programming commiting through zainabalibhai
+
+5/7 - Working on adding camera input -- M
