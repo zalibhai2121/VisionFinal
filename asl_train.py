@@ -22,7 +22,6 @@ def train():
         ax = fig.add_subplot(3, 12, i + 1, xticks=[], yticks=[])
         ax.imshow(np.squeeze(x_train[i]))
         ax.set_title("{}".format(labels[y_train[i]]))
-    plt.show()
 
     # Number of each letter in the training dataset
     num_A_train = sum(y_train == 0)
@@ -71,7 +70,7 @@ def train():
     # Fit the model to the images
     hist = model.fit(x_train, y_train_OH,
                      validation_split=0.20,
-                     epochs=10, # Increase this to improve accuracy
+                     epochs=15, # Increase this to improve accuracy
                      batch_size=32)
     #print("Shape of output", model.compute_output_shape(input_shape=(None, 64, 64, 1)))
 
@@ -95,5 +94,6 @@ def train():
         ax.imshow(np.squeeze(x_test[idx]))
         ax.set_title("{} (pred: {})".format(labels[y_test[idx]], labels[y_preds[idx]]))
 
+    plt.show()
 # Build, train and test the model
 train()
