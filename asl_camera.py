@@ -1,29 +1,32 @@
 import tensorflow as tf
 import cv2
+import numpy as np
 
 # Function to load a model and predict the camera input
 def load_and_run_webcam(model):
     model = tf.keras.models.load_model(model)
     cap = cv2.VideoCapture(0)
-    w, h = 200, 200
-    width  = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
-    width = int(width)
-    height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
-    height = int(height)
     # Where to put the rectangle
-    left_top = (width-w, 0)
-    right_bottom = (width, h)
-    color = (255, 0, 0)
+    left_top = (50, 100)
+    right_bottom = (250, 300)
+    border = (255, 0, 0)
     while(True):
         # Capture frame by frame
         ret, frame = cap.read()
+        # Do operations on the frame here including getting a prediction
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        cv2.rectangle(gray, left_top, right_bottom, border, 2)
+        h, w = gray.shape
+        # Crop the image to the rectangle to pass to the network
+        crop = gray[100:300, 50:250]
+        tf_img = tf.reshape(crop, [50, 50, 16])
+        # Predict the letter
+        p = model.predict_classes(np.asarray([tf_img], dtype=np.float32), batch_size=1)[0]
 
-        # Do operations on the frame here
-        cv2.rectangle(frame, left_top, right_bottom, color, 2)
-        cv2.flip(frame, 1)
 
         # Display the edited frame
-        cv2.imshow("ASL", frame)
+        cv2.imshow("ASL", gray)
+        cv2.imshow("Cropped", crop)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     cap.release()

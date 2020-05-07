@@ -1,7 +1,6 @@
 import cv2
 import tensorflow as tf
 import os
-import pickle
 import classify
 import numpy as np
 import matplotlib.pyplot as plt
