@@ -1,7 +1,7 @@
 import os
 from typing import Dict
 
-image_directory: str = "dataset"
+image_directory: str = "dataset/"
 label_file: str = "labels.txt"
 
 def make_labels():
@@ -12,15 +12,24 @@ def make_labels():
 
     after making the dictionary, it saves it as a .txt file for the NN to use
     """
-    labels = dict()
-
-    for filename in os.listdir(image_directory):
-        current_filename = filename
-        letter = current_filename[:1]
-        labels.update({current_filename: letter})
-
-    file = open("dataset/labels.txt", "w")
-    file.write(str(labels))
+    full_labels = dict()
+    letters = ['A', 'B', 'C']
+    for i in letters:
+        labels = dict()
+        directory = "dataset/" + i
+        for filename in os.listdir(directory):
+            if filename.endswith(".png"):
+                current_filename = filename
+                letter = current_filename[:1]
+                labels.update({current_filename: letter})
+                full_labels.update({current_filename: letter})
+        # Write names of files in each letter
+        file = open(directory + "/labels.txt", "w")
+        file.write(str(labels))
+        file.close()
+    # Write all the files in the dataset folder
+    file = open(image_directory + "/labels.txt", "w")
+    file.write(str(full_labels))
     file.close()
 
 make_labels()

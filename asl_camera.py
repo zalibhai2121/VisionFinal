@@ -2,6 +2,8 @@ import tensorflow as tf
 import cv2
 import numpy as np
 
+# Delete DS_Store files then they pop up: find . -name ".DS_Store" -delete
+
 # Function to load a model and predict the camera input
 def load_and_run_webcam(model):
     model = tf.keras.models.load_model(model)
@@ -9,7 +11,7 @@ def load_and_run_webcam(model):
     # Where to put the rectangle
     left_top = (50, 100)
     right_bottom = (250, 300)
-    border = (255, 0, 0)
+    border = (255, 255, 255)
     while(True):
         # Capture frame by frame
         ret, frame = cap.read()
@@ -19,7 +21,8 @@ def load_and_run_webcam(model):
         h, w = gray.shape
         # Crop the image to the rectangle to pass to the network
         crop = gray[100:300, 50:250]
-        tf_img = tf.reshape(crop, [50, 50, 3])
+        crop = cv2.resize(crop, (64, 64))
+        tf_img = tf.reshape(crop, [64, 64, 1])
         # Predict the letter
         p = model.predict_classes(np.asarray([tf_img], dtype=np.float32), batch_size=1)[0]
 

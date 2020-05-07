@@ -12,7 +12,7 @@ def train():
     # Loads data from classify.py that will be used to train the network
     (x_train, y_train), (x_test, y_test) = classify.load_data()
 
-    # The letters we will be trainin, testing on
+    # The letters we will be training, testing on
     labels = ['A', 'B', 'C']
 
     # Print the first several training images, along with the labels
