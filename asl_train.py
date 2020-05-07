@@ -17,7 +17,7 @@ def train():
     labels = ['A', 'B', 'C']
 
     # Print the first several training images, along with the labels
-    fig = plt.figure(figsize=(20, 5))
+    fig = plt.figure(figsize=(20, 5), num = "Some of the training images and labels")
     for i in range(10):
         ax = fig.add_subplot(3, 12, i + 1, xticks=[], yticks=[])
         ax.imshow(np.squeeze(x_train[i]))
@@ -88,7 +88,7 @@ def train():
     bad_test_idxs = np.where(y_preds != y_test)[0]
 
     # Print mislabeled examples
-    fig = plt.figure(figsize=(25, 4))
+    fig = plt.figure(figsize=(25, 4), num = "Incorrect predictions")
     for i, idx in enumerate(bad_test_idxs):
         ax = fig.add_subplot(2, np.ceil(len(bad_test_idxs) / 2), i + 1, xticks=[], yticks=[])
         ax.imshow(np.squeeze(x_test[idx]))
