@@ -16,7 +16,6 @@ def train():
     # The letters we will be trainin, testing on
     labels = ['A', 'B', 'C']
 
-    """
     # Print the first several training images, along with the labels
     fig = plt.figure(figsize=(20, 5))
     for i in range(10):
@@ -24,7 +23,6 @@ def train():
         ax.imshow(np.squeeze(x_train[i]))
         ax.set_title("{}".format(labels[y_train[i]]))
     plt.show()
-    """
 
     # Number of each letter in the training dataset
     num_A_train = sum(y_train == 0)
@@ -62,6 +60,7 @@ def train():
     model.add(tf.keras.layers.Dense(3, activation='softmax'))
 
     # Summarize the model
+    print("Summary of model:")
     model.summary()
 
     # Compile the model using categorical_crossentropy
@@ -72,7 +71,7 @@ def train():
     # Fit the model to the images
     hist = model.fit(x_train, y_train_OH,
                      validation_split=0.20,
-                     epochs=5, # Increase this to improve accuracy
+                     epochs=10, # Increase this to improve accuracy
                      batch_size=32)
     #print("Shape of output", model.compute_output_shape(input_shape=(None, 64, 64, 1)))
 
