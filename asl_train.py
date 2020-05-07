@@ -94,6 +94,9 @@ def train():
         ax.imshow(np.squeeze(x_test[idx]))
         ax.set_title("{} (pred: {})".format(labels[y_test[idx]], labels[y_preds[idx]]))
 
+    model.save('models/asl_1')
     plt.show()
 # Build, train and test the model
 train()
+
+#
