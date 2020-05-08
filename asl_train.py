@@ -17,7 +17,7 @@ def train():
 
     # Print the first several training images, along with the labels
     fig = plt.figure(figsize=(20, 5), num = "Some of the training images and labels")
-    for i in range(10):
+    for i in range(20):
         ax = fig.add_subplot(3, 12, i + 1, xticks=[], yticks=[])
         ax.imshow(np.squeeze(x_train[i]))
         ax.set_title("{}".format(labels[y_train[i]]))

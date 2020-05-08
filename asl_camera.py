@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 
 # Delete DS_Store files then they pop up: find . -name ".DS_Store" -delete
+os.environ['TF_CPP_MIN_LOG_LEVEL']='3'
 
 # Function to load a model and predict the camera input
 def load_and_run_webcam(model):
