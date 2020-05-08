@@ -5,7 +5,7 @@ def capture_and_save_images():
     num_each_digit = 100
     labels = {}
     count = 0
-    filepath = "dataset/"
+    filepath = "dataset2/"
     for label in ['A', 'B', 'C']:
         cap = cv2.VideoCapture(0)
         for i in range(num_each_digit):
@@ -15,7 +15,7 @@ def capture_and_save_images():
             crop = gray[:,(w-h)//2:(w+h//2)]
             crop = cv2.resize(crop, (64, 64))
             name = label + str(i) + ".png"
-            filename = filepath + name
+            filename = filepath + label + "/" + name
             cv2.imwrite(filename, crop)
             labels[name] = label
 

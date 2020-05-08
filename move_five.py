@@ -5,7 +5,7 @@ Calls the make_labels at the end to make an updated label.txt file
 
 import os
 import shutil
-from make_labels import make_labels
+#from make_labels import make_labels
 import os.path
 
 # Set source, destination folders
@@ -37,7 +37,7 @@ def find_lowest():
             number += 5
             find_lowest()
 
-    make_labels()
+    #make_labels()
 
 
 def move_five():
@@ -54,7 +54,7 @@ def move_five():
         while counter != 5:
             file = i + str(digit) + '.jpg'
             #print(file)
-            shutil.move(source + "/" + file, destination + "/" + file)
+            shutil.move(source + "/" + file, destination + "/" + i + "/" + file)
             #print("Number: " + str(digit), "Counter: " + str(counter))
             digit += 1
             counter += 1
