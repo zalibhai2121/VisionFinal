@@ -44,7 +44,7 @@ def train():
     y_test_OH = tf.keras.utils.to_categorical(y_test)
 
     # Begin building the model
-    model = tf.keras.Sequential([tf.keras.layers.Conv2D(filters=5, kernel_size=5, padding='same', activation='relu',input_shape=(64, 64, 1)),
+    model = tf.keras.Sequential([tf.keras.layers.Conv2D(filters=5, kernel_size=5, padding='same', activation='relu',input_shape=(64, 64, 3)),
                                  tf.keras.layers.MaxPooling2D(pool_size=4),
                                  tf.keras.layers.Conv2D(filters=15, kernel_size=5, padding='same', activation='relu'),
                                  tf.keras.layers.MaxPooling2D(pool_size=4),
@@ -65,7 +65,7 @@ def train():
     hist = model.fit(x_train, y_train_OH,
                      validation_split=0.20,
                      epochs=25, # Increase this to improve accuracy
-                     batch_size=32)
+                     batch_size=64)
     print("Shape of output", model.compute_output_shape(input_shape=(None, 64, 64, 1)))
 
     # Obtain accuracy on test set

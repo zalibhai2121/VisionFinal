@@ -23,7 +23,7 @@ def load_and_run_webcam(model):
         # Crop the image to the rectangle to pass to the network
         crop = gray[100:300, 50:250]
         crop = cv2.resize(crop, (64, 64))
-        tf_img = tf.reshape(crop, [50, 50, 3])
+        tf_img = tf.reshape(crop, [64, 64, 3])
         # Predict the letter
         p = model.predict_classes(np.asarray([tf_img], dtype=np.float32), batch_size=1)[0]
 

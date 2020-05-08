@@ -20,6 +20,8 @@ def capture_and_save_images():
             h, w = gray.shape
             crop = gray[:,(w-h)//2:(w+h//2)]
             crop = cv2.resize(crop, (64, 64))
+            #tf_img = tf.reshape(crop, [64, 64, 1])
+            #final = tf_img.flatten()
             name = label + str(i) + ".png"
             filename = filepath + label + "/" + name
             cv2.imwrite(filename, crop)
