@@ -5,7 +5,7 @@ from os import listdir
 from os.path import isdir, join
 
 
-def load_data(container_path='dataset/', folders = ['A', 'B', 'C'],
+def load_data(container_path='dataset2/', folders = ['A', 'B', 'C'],
               size=2000, test_split=0.2, seed=0):
     """
     Loads sign language dataset.
@@ -48,7 +48,7 @@ def tensor_path(img_path, size):
     return np.expand_dims(x, axis=0)
 
 
-def tensor_paths(img_paths, size=50):
+def tensor_paths(img_paths, size=64):
     tensor_list = [tensor_path(img_path, size) for img_path in img_paths]
     return np.vstack(tensor_list)
 

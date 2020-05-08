@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 # Remove any TF log outputs (e.g. CPU supporting stuff)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+# Delete DS_Store files then they pop up: find . -name ".DS_Store" -delete
 
 
 def train():
@@ -43,10 +44,11 @@ def train():
     y_test_OH = tf.keras.utils.to_categorical(y_test)
 
     # Begin building the model
-    model = tf.keras.Sequential([tf.keras.layers.Conv2D(filters=5, kernel_size=5, padding='same', activation='relu',input_shape=(50, 50, 3)),
+    model = tf.keras.Sequential([tf.keras.layers.Conv2D(filters=5, kernel_size=5, padding='same', activation='relu',input_shape=(64, 64, 1)),
                                  tf.keras.layers.MaxPooling2D(pool_size=4),
                                  tf.keras.layers.Conv2D(filters=15, kernel_size=5, padding='same', activation='relu'),
-                                 tf.keras.layers.MaxPooling2D(pool_size=4),tf.keras.layers.Flatten(),
+                                 tf.keras.layers.MaxPooling2D(pool_size=4),
+                                 tf.keras.layers.Flatten(),
                                  tf.keras.layers.Dense(3, activation='softmax')])
 
 
@@ -62,7 +64,7 @@ def train():
     # Fit the model to the images
     hist = model.fit(x_train, y_train_OH,
                      validation_split=0.20,
-                     epochs=15, # Increase this to improve accuracy
+                     epochs=25, # Increase this to improve accuracy
                      batch_size=32)
     print("Shape of output", model.compute_output_shape(input_shape=(None, 64, 64, 1)))
 

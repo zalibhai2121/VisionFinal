@@ -38,6 +38,7 @@ def capture_and_save_images():
 
 
 capture_and_save_images()
+"""
 classify.load_data(container_path='dataset2/', folders = ['A', 'B', 'C'],
               size=2000, test_split=0.2, seed=0)
 classify()
@@ -121,3 +122,4 @@ def classify():
 
     model.save('models/asl_1')
     plt.show()
+"""

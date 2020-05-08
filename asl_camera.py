@@ -1,8 +1,8 @@
 import tensorflow as tf
 import cv2
 import numpy as np
+import os
 
-# Delete DS_Store files then they pop up: find . -name ".DS_Store" -delete
 os.environ['TF_CPP_MIN_LOG_LEVEL']='3'
 
 # Function to load a model and predict the camera input
@@ -23,7 +23,7 @@ def load_and_run_webcam(model):
         # Crop the image to the rectangle to pass to the network
         crop = gray[100:300, 50:250]
         crop = cv2.resize(crop, (64, 64))
-        tf_img = tf.reshape(crop, [64, 64, 1])
+        tf_img = tf.reshape(crop, [50, 50, 3])
         # Predict the letter
         p = model.predict_classes(np.asarray([tf_img], dtype=np.float32), batch_size=1)[0]
 
