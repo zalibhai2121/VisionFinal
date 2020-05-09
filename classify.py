@@ -5,13 +5,17 @@ from os import listdir
 from os.path import isdir, join
 
 
-def load_data(container_path='dataset2/', folders = ['A', 'B', 'C'],
-              size=2000, test_split=0.2, seed=0):
+def load_data():
     """
-    Loads sign language dataset.
+    :return:
     """
-
-    names, labels = [], []
+    container_path = 'dataset2/'
+    folders = ['A', 'B', 'C']
+    size = 2000
+    test_split = 0.2
+    seed = 0
+    names = []
+    labels = []
 
     for label, folder in enumerate(folders):
         folder_path = join(container_path, folder)
@@ -39,7 +43,13 @@ def load_data(container_path='dataset2/', folders = ['A', 'B', 'C'],
     return (x_train, y_train), (x_test, y_test)
 
 
-def tensor_path(img_path, size):
+def tensor_converter(img_path, size):
+    """
+    Given an RBG image, converts that image to a 3D tensor, and then turns that 3D tensor into a 4D tensor
+    :param img_path:
+    :param size:
+    :return: a 4D tensor
+    """
     # loads RGB image as PIL.Image.Image type
     img = tf.keras.preprocessing.image.load_img(img_path, target_size=(size, size))
     # convert PIL.Image.Image type to 3D tensor
@@ -48,8 +58,15 @@ def tensor_path(img_path, size):
     return np.expand_dims(x, axis=0)
 
 
-def tensor_paths(img_paths, size=64):
-    tensor_list = [tensor_path(img_path, size) for img_path in img_paths]
-    return np.vstack(tensor_list)
+def tensor_paths(img_paths):
+    """
+    Gives the list of tensor paths
+    :param img_paths: the paths of the images
+    :return: The list of tensor paths
+    """
+    size = 64
+    tensor_list = [tensor_converter(img_path, size) for img_path in img_paths]
+
+    return np.vstack(tensor_list) #np.vstack stacks arrays vertically (by row)
 
 load_data()
