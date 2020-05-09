@@ -1,44 +1,53 @@
 import random
 import numpy as np
 import tensorflow as tf
+import os
 from os import listdir
 from os.path import isdir, join
 
 
 def load_data():
     """
-    :return:
+    Loads the images
+    TODO: maybe switch names and labels to be numpy arrays?
+    :return: Tuples of Numpy Arrays
     """
-    container_path = 'dataset2/'
-    folders = ['A', 'B', 'C']
-    size = 2000
-    test_split = 0.2
-    seed = 0
-    names = []
-    labels = []
+    container = 'dataset2/' #path of the container where the images are located
+    folders = ['A', 'B', 'C'] #the names of the folders - each folder is given as a letter
+    data_size = 2000 #the size of the data that we want
+    test_split = 0.2 #fraction of the data to reserve as a test set
+    names = [] #a list of the names of the images
+    labels = [] # the labels for the images
 
     for label, folder in enumerate(folders):
-        folder_path = join(container_path, folder)
-        images = [join(folder_path, d)
-                  for d in sorted(listdir(folder_path))]
-        labels.extend(len(images) * [label])
+
+        #for the path for the folder
+        path = join(container, folder)
+        #images = [join(folder_path, d) for d in sorted(listdir(path))]
+        for pic in sorted(os.listdir(path)):
+            images = [join(path, pic)]
+
+        labels.extend(len(images) * [label]) #extend list of labels by appending elements from an iterable (label)
         names.extend(images)
 
-    random.seed(seed)
-    data = list(zip(names, labels))
-    random.shuffle(data)
-    data = data[:size]
-    names, labels = zip(*data)
+    #random seed for shuffling the data before computing the test split
+    random.seed(0)
+    #data = list(zip(names, labels))
+    #random.shuffle(data) #possibly delete later
+    #data = data[:data_size]
+    #names, labels = zip(*data)
+    indices = np.arange(len(names))
+    random.shuffle(indices) #maybe put np in front of it if it doesn't work
+    names = names[indices]
+    labels = labels[indices]
 
-    # Get the images
-    x = tensor_paths(names).astype('float32') / 255
-    # Store the one-hot targets
-    y = np.array(labels)
+    x = tensor_paths(names).astype('float32') / 255 #obtain the images
+    y = np.array(labels) #store the labels in a numpy array
 
-    x_train = np.array(x[:int(len(x) * (1 - test_split))])
-    y_train = np.array(y[:int(len(x) * (1 - test_split))])
-    x_test = np.array(x[int(len(x) * (1 - test_split)):])
-    y_test = np.array(y[int(len(x) * (1 - test_split)):])
+    x_train = np.array(x[:int(len(x) * (1 - test_split))]) #training samples
+    y_train = np.array(y[:int(len(x) * (1 - test_split))]) #training samples
+    x_test = np.array(x[int(len(x) * (1 - test_split)):]) #testing samples
+    y_test = np.array(y[int(len(x) * (1 - test_split)):]) #testing samples
 
     return (x_train, y_train), (x_test, y_test)
 
