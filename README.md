@@ -1,6 +1,8 @@
 # VisionFinal
 
-Building a network that recognizes the American Sign Language alphabets using Python, Open-CV, and Tensor-flow.
+Building a neural network that recognizes the American Sign Language (ASL) alphabet using Python, Open-CV, and Tensor-Flow.
+
+Note, this project is harder than expected, especially when taking into account similar letters - even for letters that do not require motion. We have enjoyed learning bits of sign language though. Also, even though certain people made certain commits, a lot (and I mean a lot) of ideas are discussed and worked out in our group chat.
 
 Tonight and tomorrow, I am going to look into how other ASL reading programs deal with "j" and "z" and also get some pictures in so we can start classifying the other alphabets
 
