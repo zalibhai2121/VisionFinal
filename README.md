@@ -9,6 +9,8 @@ Tonight and tomorrow, I am going to look into how other ASL reading programs dea
 4/27 - created label maker for the nn, and started training data -- M
 --- can use corner detection to help detect what alphabet we are using -- Z
 
-5/02 - pair programming commiting through zainabalibhai
+5/02 - pair/mob programming commiting through zainabalibhai
 
 5/7 - Working on adding camera input -- M
+
+5/10 - I just remembered we were supposed to update this as we go.... Guess who forgot??? Whoops --G
