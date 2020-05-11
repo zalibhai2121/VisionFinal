@@ -12,9 +12,8 @@ import os.path
 source: str = "extra_dataset"
 destination: str = "dataset" #why is this still here
 # Set alphabet as a list
-alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'del', 'nothing', 'space']
-short_alphabet = ['A', 'B', 'C']
-
+alphabet = ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'del', 'nothing', 'space']
+# 'A', 'B', 'C', 
 
 number = 1
 
@@ -46,12 +45,12 @@ def move_five():
     """
     global number
 
-    for i in short_alphabet:
+    for i in alphabet:
         digit = number
         letter = i
         counter = 0
 
-        while counter != 5:
+        while counter != 1000: # Change to move more filesin one execution
             file = i + str(digit) + '.jpg'
             #print(file)
             shutil.move(source + "/" + file, destination + "/" + i + "/" + file)
