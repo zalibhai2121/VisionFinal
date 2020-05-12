@@ -1,3 +1,5 @@
+# Help from: https://www.geeksforgeeks.org/python-opencv-cv2-imwrite-method/
+
 from PIL import Image
 import os, sys
 import cv2
