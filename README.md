@@ -21,11 +21,11 @@ Tonight and tomorrow, I am going to look into how other ASL reading programs dea
 
 
 # How it works:
-## Two ways togo about this:
+## Two ways to go about this:
 ### 1. Train the network yourself before classifying
   - If you want to train the nn, please go to line 112 and change the number to save a new model when done. Run asl_train.py and it will begin trining.
   - Depending on the number of layers, epochs, steps, and validation steps, it can take a while
   - When done, 2 graphs will be generated, displayed and saved for you. Proceed to the next step
-### 2. Begin classifying your camera input using an already trined nn
+### 2. Begin classifying your camera input using an already trained nn
   - If you did not train your own nn, move to the next step. Otherwise, please go to line 16 of asl_camera and change the number to the model you just trained earlier
   - Run asl_camera.py. 2 windows will pop up. 1 will be your camera with a box to put your hand in, the other will be the cropped box. Letters will begin displaying with your predicted letter.
