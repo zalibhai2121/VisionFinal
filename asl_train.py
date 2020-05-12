@@ -104,12 +104,12 @@ def train():
     fit_model = model.fit_generator(
             training_set,
             steps_per_epoch=800,
-            epochs=50,
+            epochs=500,
             validation_data = test_set,
-            validation_steps = 10) # The larger the number the longer it takes at the end of each epoch.
+            validation_steps = 6500) # The larger the number the longer it takes at the end of each epoch.
 
     # Save the model
-    model_name = "asl_4" # Change this to save as a new model, will also generate new graphs for the model
+    model_name = "asl_5" # Change this to save as a new model, will also generate new graphs for the model
     model.save("models/" + model_name)
 
     """
