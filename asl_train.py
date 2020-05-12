@@ -89,13 +89,13 @@ def train():
     test_datagen = ImageDataGenerator(rescale=1./255)
     # Make the training and test datasets easily accessable during the process
     training_set = train_datagen.flow_from_directory(
-            "dataset",
+            "dataset2",
             target_size=(64, 64),
             batch_size=32,
             class_mode="categorical")
 
     test_set = test_datagen.flow_from_directory(
-            "test_dataset",
+            "test_dataset2",
             target_size=(64, 64),
             batch_size=32,
             class_mode="categorical")
@@ -104,9 +104,9 @@ def train():
     fit_model = model.fit_generator(
             training_set,
             steps_per_epoch=800,
-            epochs=500,
+            epochs=25,
             validation_data = test_set,
-            validation_steps = 6500) # The larger the number the longer it takes at the end of each epoch.
+            validation_steps = 20) # The larger the number the longer it takes at the end of each epoch.
 
     # Save the model
     model_name = "asl_5" # Change this to save as a new model, will also generate new graphs for the model

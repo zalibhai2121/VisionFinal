@@ -19,6 +19,8 @@ Tonight and tomorrow, I am going to look into how other ASL reading programs dea
 
 5/11 - "Improved" the model  (still has a long way to go), got the camera to work, need some sleep --M
 
+5/12 - Training greyscale dataset, working on developing a thresholded one... --M
+
 
 # How it works:
 ## Two ways to go about this:

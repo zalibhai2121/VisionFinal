@@ -9,10 +9,13 @@ asl_3: Second model, trained on color image dataset, 46% accuracy
         Steps = 800
         Epochs = 25
         Validation steps = 10
-asl_4: Second model, trained on color image dataset, 50% accuracy
+asl_4: Third model, trained on color image dataset, 50% accuracy
         Steps = 800
         Epochs = 50
         Validation steps = 10
-
+asl_5: Fourth model, trained on greyscale dataset,
+        Steps = 800
+        Epochs = 25
+        Validation steps = 20
 
 """
