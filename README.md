@@ -16,3 +16,5 @@ Tonight and tomorrow, I am going to look into how other ASL reading programs dea
 5/7 - Working on adding camera input -- M
 
 5/10 - I just remembered we were supposed to update this as we go.... Guess who forgot??? Whoops --G
+
+5/11 - Improved the model --M
