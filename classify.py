@@ -5,7 +5,7 @@ import os
 from os import listdir
 from os.path import isdir, join
 
-
+#https://github.com/pfoy/ASL-Recognition-with-Deep-Learning/blob/master/notebook.ipynb
 def load_data():
     """
     Loads the images
