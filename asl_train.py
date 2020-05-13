@@ -1,3 +1,8 @@
+# To-do list ### CURRENT ISSUE: Constantly thinks the letter is M (I think it's because of model inaccuracy)
+# 1) Modify the model in the hopes of improving accuracy (add additional Conv2D layer) (Maybe another dropout layer?)
+# 2) #Important# Try using Opencv to thresh, etc the dataset and train on that. We want the background black and the hands white. This can happen in a copy of the work_on_images.py file
+# 3) Take photos of my own hand doing the alphabet. However, until model acuracy goes up, no photo will help...
+
 import cv2
 import tensorflow as tf
 import os
@@ -59,6 +64,9 @@ def train():
                                  tf.keras.layers.Dense(256, activation="relu"),
                                  tf.keras.layers.Dropout(0.5),
                                  tf.keras.layers.Dense(26, activation="softmax")])
+
+                                 # I think the issue with accuracy occurs here, we need to add more layers to our model. I will work on this after I finish Theory
+
     """ # Old Model
     model = tf.keras.Sequential([tf.keras.layers.Conv2D(filters=5, kernel_size=5, padding="same", activation="relu",input_shape=(64, 64, 3)),
                                  tf.keras.layers.MaxPooling2D(pool_size=4),
@@ -100,6 +108,15 @@ def train():
             batch_size=32,
             class_mode="categorical")
 
+    """
+    # Fit the model to the images
+    hist = model.fit(x_train, y_train_OH,
+                     validation_split=0.20,
+                     epochs=25, # Increase this to improve accuracy
+                     batch_size=64)
+    print("Shape of output", model.compute_output_shape(input_shape=(None, 64, 64, 1)))
+    """
+
     # Fit the model to the images.
     fit_model = model.fit_generator(
             training_set,
@@ -113,12 +130,6 @@ def train():
     model.save("models/" + model_name)
 
     """
-    # Fit the model to the images
-    hist = model.fit(x_train, y_train_OH,
-                     validation_split=0.20,
-                     epochs=25, # Increase this to improve accuracy
-                     batch_size=64)
-    print("Shape of output", model.compute_output_shape(input_shape=(None, 64, 64, 1)))
 
     # Obtain accuracy on test set
     score = model.evaluate(x=x_test,

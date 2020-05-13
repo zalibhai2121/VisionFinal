@@ -10,9 +10,9 @@ from PIL import Image
 from keras.preprocessing import image
 
 # Supress all non-error tf messages
-os.environ['TF_CPP_MIN_LOG_LEVEL']='3'
+os.environ["TF_CPP_MIN_LOG_LEVEL"]="3"
 
-# Model to be used in this instance:
+# Load model to be used in this instance:
 model_name = "models/asl_4"
 model = tf.keras.models.load_model(model_name)
 
@@ -34,7 +34,8 @@ def load_and_run_webcam():
         # Crop the image to the rectangle to pass to the network, save it
         crop = frame[100:300, 50:250]
         crop = cv2.resize(crop, (64, 64))
-        cv2.imwrite("Camera.png", crop)
+        # In the next update, we need to add functions below here to take the camera and perform Thresh, etc on it to help seperate the background
+        cv2.imwrite("camera.png", crop)
         # Call the network to classify the image saved, the function returns a letter
         letter = get_letter()
         print(letter)
@@ -44,70 +45,77 @@ def load_and_run_webcam():
         # Display the original and edited frame
         cv2.imshow("ASL", frame)
         cv2.imshow("Cropped", crop)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if cv2.waitKey(1) & 0xFF == ord("q"):
             break
     cap.release()
     cv2.destroyAllWindows()
 
 
 # Function to get the letter from the image sent to it
+# The reason for this was because (for my laptop at least) having the camera input go straight to the
+# predictor would often crash the program. This way allows the program to finish predicting before it
+# grabs a new image to predict off of.
 def get_letter():
-    camera = image.load_img("Camera.png")
+    camera = image.load_img("camera.png")
     camera = image.img_to_array(camera)
+    # Expands the shape of an array
     camera = np.expand_dims(camera, axis = 0)
+    # Get a predicted letter, returns an array like: [[0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 1. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]]
     letter = model.predict(camera)
+    #print(letter)
+    # Find which index in the array is 1. There are 26 possible indices (1 for each letter)
     if letter[0][0] == 1:
-           return 'A'
+           return "A"
     elif letter[0][1] == 1:
-           return 'B'
+           return "B"
     elif letter[0][2] == 1:
-           return 'C'
+           return "C"
     elif letter[0][3] == 1:
-           return 'D'
+           return "D"
     elif letter[0][4] == 1:
-           return 'E'
+           return "E"
     elif letter[0][5] == 1:
-           return 'F'
+           return "F"
     elif letter[0][6] == 1:
-           return 'G'
+           return "G"
     elif letter[0][7] == 1:
-           return 'H'
+           return "H"
     elif letter[0][8] == 1:
-           return 'I'
+           return "I"
     elif letter[0][9] == 1:
-           return 'J'
+           return "J"
     elif letter[0][10] == 1:
-           return 'K'
+           return "K"
     elif letter[0][11] == 1:
-           return 'L'
+           return "L"
     elif letter[0][12] == 1:
-           return 'M'
+           return "M"
     elif letter[0][13] == 1:
-           return 'N'
+           return "N"
     elif letter[0][14] == 1:
-           return 'O'
+           return "O"
     elif letter[0][15] == 1:
-           return 'P'
+           return "P"
     elif letter[0][16] == 1:
-           return 'Q'
+           return "Q"
     elif letter[0][17] == 1:
-           return 'R'
+           return "R"
     elif letter[0][18] == 1:
-           return 'S'
+           return "S"
     elif letter[0][19] == 1:
-           return 'T'
+           return "T"
     elif letter[0][20] == 1:
-           return 'U'
+           return "U"
     elif letter[0][21] == 1:
-           return 'V'
+           return "V"
     elif letter[0][22] == 1:
-           return 'W'
+           return "W"
     elif letter[0][23] == 1:
-           return 'X'
+           return "X"
     elif letter[0][24] == 1:
-           return 'Y'
+           return "Y"
     elif letter[0][25] == 1:
-           return 'Z'
+           return "Z"
 
 
 load_and_run_webcam()
